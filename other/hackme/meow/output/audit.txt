@@ -1,0 +1,25 @@
+Foremost version 1.5.7 by Jesse Kornblum, Kris Kendall, and Nick Mikus
+Audit File
+
+Foremost started at Tue May 24 08:55:52 2022
+Invocation: foremost meow.png 
+Output directory: /home/m1dm4n/ctf/hackme/output
+Configuration file: /etc/foremost.conf
+------------------------------------------------------------------
+File: meow.png
+Start: Tue May 24 08:55:52 2022
+Length: 95 KB (97934 bytes)
+ 
+Num	 Name (bs=512)	       Size	 File Offset	 Comment 
+
+0:	00000094.zip 	      48 KB 	      48543 	 
+1:	00000000.png 	      47 KB 	          0 	  (296 x 279)
+Finish: Tue May 24 08:55:52 2022
+
+2 FILES EXTRACTED
+	
+zip:= 1
+png:= 1
+------------------------------------------------------------------
+
+Foremost finished at Tue May 24 08:55:52 2022
