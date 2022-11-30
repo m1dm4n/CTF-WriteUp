@@ -1,5 +1,8 @@
 # Hack.<span>lu CTF 2022</span>
 
+[![hackmd-github-sync-badge](https://hackmd.io/qkA1CGJpTtCgetw1dY3SIg/badge)](https://hackmd.io/qkA1CGJpTtCgetw1dY3SIg)
+
+
 ## Crypto - Linear Starter - 166 solves
 ~~Bạn mình solve lúc mình đang ngủ rồi =)))~~
 
