@@ -1,4 +1,7 @@
 # WannaGame ChampionShip CTF2022 - Crypto
+
+[![hackmd-github-sync-badge](https://hackmd.io/sfo4hvrqQ7S7reeOGHctGQ/badge)](https://hackmd.io/sfo4hvrqQ7S7reeOGHctGQ)
+
 ## Complex Thing
 
 Yêu cầu để tìm ra Flag đó chính là mọi người cần phải khôi phục được đa thức $f$ ban đầu với chỉ 1 nghiệm phức cho trước. Ý tưởng bài này là từ những ngày đầu mình nhập môn về lattice và ăn hành từ idol @maple3142 =)))
@@ -104,7 +107,7 @@ def do_install(module_path: str):
     pass
 ```
 Code gốc:
-```python!
+```python
 def do_install(module_path: str):
     modules = glob.glob(module_path + "/**")
     modules.sort()
