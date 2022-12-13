@@ -8,13 +8,13 @@ import glob
 from shutil import make_archive, rmtree
 
 
-def hash2vec(h):
-    return vector(F, list(map(int, bin(btl(h))[2:].zfill(256))))
-
-
 def xor(bs1: bytearray, bs2: bytearray):
     assert len(bs1) == len(bs2)
     return bytearray([b1 ^ b2 for b1, b2 in zip(bs1, bs2)])
+
+
+def hash2vec(h):
+    return vector(F, list(map(int, bin(btl(h))[2:].zfill(256))))
 
 
 def compute_hash_of_directory(directory: str) -> bytearray:
@@ -45,12 +45,8 @@ def compute_hash_of_directory(directory: str) -> bytearray:
     return final_hash
 
 
-def solve():
-    m1 = sha256(path.encode() + b'\0').digest()
-    m2 = sha256(shell_name.encode() + b'\0' + shell).digest()
-    print(path[:-1], m1.hex())
-    print(shell_name, m2.hex())
-    mat = [hash2vec(m1), hash2vec(m2)]
+def solve(target_vec: vector):
+    mat = []
     name_datas = []
     while True:
         _mat = mat[:]
@@ -68,12 +64,6 @@ def solve():
             break
     mat = matrix(F, mat).transpose()
     X = mat.solve_right(target_vec).change_ring(ZZ).list()
-
-    if X[0] != 1 or X[1] != 1:
-        print("Try again!")
-        return False
-
-    X = X[2:]
     for i, (name, data) in zip(X, name_datas):
         if i:
             with open('app/module/'+name, 'wb') as f:
@@ -82,9 +72,20 @@ def solve():
     return True
 
 
-F = GF(2)
+# Set this to target hash
 target = b'sh\xb4\xaftH\xe7@\xf0e\x7f\xe0\x9e\xd6@0\xfc\xabL\xc0<I\x12k\xb1S)\xeb\xea"\xa3N'
-target_vec = hash2vec(target)
+
+
+F = GF(2)
+if not os.path.exists('app/'):
+    os.mkdir('app/')
+signature = open("signature.bin", "rb").read()
+with open('app/signature.bin', 'wb') as f:
+    f.write(signature)
+
+if not os.path.exists('app/module/'):
+    os.mkdir('app/module/')
+
 path = f'shell_{int(time.time())}/'
 if os.path.exists('app/module/' + path):
     rmtree('app/module/' + path)
@@ -94,10 +95,13 @@ shell_name = path + 'setup.py'
 shell = open('shell.py', 'rb').read()
 with open('app/module/'+shell_name, 'wb') as f:
     f.write(shell)
+m1 = sha256(path.encode() + b'\0').digest()
+m2 = sha256(shell_name.encode() + b'\0' + shell).digest()
+target_vec = hash2vec(target) + hash2vec(m1) + hash2vec(m2)
 
-while True:
-    if solve():
-        break
-
+print("Target hash:", target.hex())
+print(path[:-1], m1.hex())
+print(shell_name, m2.hex())
+solve(target_vec)
 make_archive(f'test_{int(time.time())}',  'zip', 'app')
-rmtree('app/module/' + path)
+rmtree('app/')
