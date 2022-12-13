@@ -1,23 +1,8 @@
-import subprocess
-import tempfile
 import glob
 import os
 import ecdsa
-import zipfile
 from hashlib import sha256
 
-size_limit = 1 << 20
-public_key = open('public.pem', 'rb').read()
-timeout = 10
-
-
-def check_size(file_list: list[zipfile.ZipInfo]) -> bool:
-    total = 0
-    for file in file_list:
-        total += file.size()
-        if total >= size_limit:
-            return False
-    return True
 
 
 def xor(bs1: bytearray, bs2: bytearray):
@@ -54,4 +39,6 @@ def compute_hash_of_directory(directory: str) -> bytearray:
 
 a = os.getcwd() + "/module"
 h = compute_hash_of_directory(a)
-print(h)
+privatekey = open("private.pem",'rb').read()
+with open("signature.bin", "wb") as f:
+    f.write(ecdsa.SigningKey.from_pem(privatekey).sign_digest(h))
