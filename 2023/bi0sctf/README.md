@@ -26,7 +26,7 @@ $$
 
 ## Too EC
 
-Another ECDSA with bad nonce but this time we have 2 curve and we must factorize `N`, which is `p1*p2` first, so that we could recover the order of 2 curve. `N` is so big but luckily the challenge also give us a partial factor of `N` which had been erased 3 small parts of its.
+Another ECDSA with bad nonce but this time we have 2 curve and we must factorize `N`, which is `p1*p2` first, so that we could recover the order of 2 curve. `N` is so big but luckily the challenge also give us a partial factor of `N` which had been erased 3 small parts of its => Small modular roots of a multivariate polynomial
 
 For solving a Coppersmith factorization, i had used script from [link](https://github.com/jvdsn/crypto-attacks/blob/master/attacks/factorization/coppersmith.py) which run very fast on my laptop (about 25s). For remainder part of challenge is nearly same as previous Leakydsa chall
 
