@@ -1,11 +1,20 @@
 # LACTF 20233 - Blockchain Writeups
 ## breakup
 
+Source:
++ [Setup.sol](https://github.com/m1dm4n/CTF-WriteUp/tree/main/2023/lactf/breakup/Setup.sol)
++ [Friend.sol](https://github.com/m1dm4n/CTF-WriteUp/tree/main/2023/lactf/breakup/Friend.sol)
+
 For this challenge, the main contract check if "You" is in `friendNames` of `Friend` contract so you need to delete the name "You" from the mapping. Solution is use the `burn` function of it since the key of "You" in the mapping is easy to get just from reading the source (call `tokenOfOwnerByIndex` with `somebodyYouUsedToKnow` address and value `0`)
 
 My scipt: [solve.py](https://github.com/m1dm4n/CTF-WriteUp/blob/main/2023/lactf/breakup/solve.py)
 
-## evmvm
+## evmvm 
+
+Source:
++ [Setup.sol](https://github.com/m1dm4n/CTF-WriteUp/tree/main/2023/lactf/evmvm/Setup.sol)
++ [Friend.sol](https://github.com/m1dm4n/CTF-WriteUp/tree/main/2023/lactf/evmvm/EVMVM.sol)
+
 
 This challenge is harder since you need to understand how the solidity work in lower level of Solidy language (like assembly). The main contract requires the sender of who ever want to solve it is its deployed contract `EVMVM`. It means that we need to make the deployed `EVMVM` contract call the function `solve` of `Setup` contract to win.
 
