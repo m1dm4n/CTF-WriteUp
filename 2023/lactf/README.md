@@ -11,9 +11,13 @@ This challenge is harder since you need to understand how the solidity work in l
 
 ![image](https://user-images.githubusercontent.com/92845822/218942091-143e4300-bffc-4543-952e-3c46f37838dd.png)
 
-So our target will be the "EVMVM" contract, which have a function to executes a single opcode every times we send to it. This problem leads to a thing that we cannot use the memory of contract because memory is like RAM, the function end the ram clean. This is really a pain since if we want to make a call a function of another contract, we need a calldata contains singnature of function we want to call but look at this first.
+So our target will be the "EVMVM" contract, which have a function `enterTheMetametaverse` to executes a single opcode every times we send to it. This problem leads to a thing that we cannot use the memory of contract because memory is like RAM, the function end the ram clean. This is really a pain since if we want to make a call a function of another contract, we need a calldata contains singnature of function we want to call but look at this first.
+
+`call` opcode document:
 
 ![image](https://user-images.githubusercontent.com/92845822/218943394-cb6c4195-023c-4dc8-ad29-031a31d41efd.png)
+
+`call` opcode in `EVMVM` contract:
 
 ![image](https://user-images.githubusercontent.com/92845822/218943728-17b8208e-ef0e-4ec3-ba61-3135b8c2cc4e.png)
 
