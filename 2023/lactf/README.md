@@ -1,9 +1,9 @@
 # LACTF 20233 - Blockchain Writeups
 ## breakup
 
-For this challenge you just need to delete the name "You" from `friendNames` mapping of `Friend` contract. Solution is use the `burn` function since `tokenId` is easy to 
-get just from reading the source
-[solve.py](https://github.com/m1dm4n/CTF-WriteUp/blob/main/2023/lactf/breakup/solve.py)
+For this challenge, the main contract check if "You" is in `friendNames` of `Friend` contract so you need to delete the name "You" from the mapping. Solution is use the `burn` function of it since the key of "You" in the mapping is easy to get just from reading the source (call `tokenOfOwnerByIndex` with `somebodyYouUsedToKnow` address and value `0`)
+
+My scipt: [solve.py](https://github.com/m1dm4n/CTF-WriteUp/blob/main/2023/lactf/breakup/solve.py)
 
 ## evmvm
 
@@ -47,7 +47,10 @@ The harder thing is done, other part is just stack knowledge and programming ski
 3. Send the opcode of `DELEGATECALL` and we are done!
 
 > note1: the leftmost is the highest value in stack
+
 > note2: `address` is our deployed contract
+
+> note3: When call a function the EVM read parameters from right to left and then call it so we will need to push in reverse order
 
 | Opcode name | Stack  |
 | :---:       | :---- |
