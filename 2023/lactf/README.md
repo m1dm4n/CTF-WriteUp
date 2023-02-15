@@ -19,11 +19,12 @@ So our target will be the "EVMVM" contract, which have a function to executes a 
 
 The call opcode requires the offset of calldata in memory and this offset is got from `stack`. We can save anything we want to the memory easily using `mstore` opcode but in the next calling it just disappear. I had been stuck from this step so i just do some guessing method but it didn't work because i'm still very new to blockchain. After the ctf ends, i learned that `delegatecall` is our solution. [What is DelegateCall in solidity](https://medium.com/coinmonks/delegatecall-calling-another-contract-function-in-solidity-b579f804178c)
 
-Basicly the `delegatecall` is something like this: 
+Basically the `delegatecall` is something like this: 
 
-> When contract A executes delegatecall to contract B , B's code is executed. with contract A's storage, `msg.sender` and `msg.value`.
+> When contract A executes delegatecall to contract B , B's code is executed. with contract A's storage, `msg.sender` and `msg.value`. So if contract B make a call to contract C, the `msg.sender` will be A's `msg.sender`
 
-With this, we can create our malicious contract that will make a call to `Solve` contract and then make `EVMVM` contract create a `delegatecall` to our contract. Our contract:
+
+With this, we can create our malicious contract that have a function to call function `solve` of `Solve` contract, then trigger a `delegatecall` from `EVMVM` contract to our contract and the `msg.sender` will be `EVMVM` contract. Our contract:
 
 ```solidity
 contract Exploit {
