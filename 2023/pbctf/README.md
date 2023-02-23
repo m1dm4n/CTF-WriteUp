@@ -1,6 +1,6 @@
 # PBCTF 2023
 
-I had spended many time on **HACKTM 2023** so i had solved 2 challenges **ecc2** and **Blocky5** after the contest ended
+I had spended many time on **HACKTM 2023** so i could only solve **ecc** and **Blocky** on time and 2 challenges **ecc2** and **Blocky5** solved after the contest ended
 
 
 > detail writeups will have if i'm not lazy :)
