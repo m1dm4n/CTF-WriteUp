@@ -1,6 +1,8 @@
+from sage.all import discrete_log
+from sage.all import GF
 from challenge import ECPoint
 from hashlib import sha256
-from pwn import remote
+from pwn import remote, process
 from sage.all import GF, PolynomialRing
 
 MODS = [
@@ -57,26 +59,44 @@ def get_x(nonces: list[int]) -> bytes:
     return ret
 
 
-def dlog(F, A, B, Gx, Gy, Px, Py):
-    (x, ) = PolynomialRing(F, names='x').gens()
-    f = x**3 + A*x + B
-    f_ = f.subs(x=x + 1)
-    Px = Px - 1
-    Gx = Gx - 1
-    t = F(3).sqrt()
-    u = (Py + t * Px) / (Py - t * Px)
-    v = (Gy + t * Gx) / (Gy - t * Gx)
-    ret = u.log(v)
-    if int(ret).bit_length() <= 80:  # nonce <= 80 bits
-        return int(ret)
-    Py = -Py
-    u = (Py + t * Px) / (Py - t * Px)
-    v = (Gy + t * Gx) / (Gy - t * Gx)
-    ret = u.log(v)
-    return int(ret)
+def dlog(F, a, b, Gx, Gy, Px, Py):
+    """
+    Solves the discrete logarithm problem on a singular curve (y^2 = x^3 + a2 * x^2 + a4 * x + a6).
+    :param p: the prime of the curve base ring
+    :param a2: the a2 parameter of the curve
+    :param a4: the a4 parameter of the curve
+    :param a6: the a6 parameter of the curve
+    :param Gx: the base point x value
+    :param Gy: the base point y value
+    :param Px: the point multiplication result x value
+    :param Py: the point multiplication result y value
+    :return: l such that l * G == P
+    """
+    x = F["x"].gen()
+    f = x ** 3 + a * x + b
+    roots = f.roots()
+
+    if roots[0][1] == 2:
+        alpha = roots[0][0]
+        beta = roots[1][0]
+    elif roots[1][1] == 2:
+        alpha = roots[1][0]
+        beta = roots[0][0]
+    else:
+        raise ValueError("Expected root with multiplicity 2.")
+    t = (alpha - beta).sqrt()
+    u = (Gy + t * (Gx - alpha)) / (Gy - t * (Gx - alpha))
+    v = (Py + t * (Px - alpha)) / (Py - t * (Px - alpha))
+    x = int(v.log(u))
+    if x.bit_length() <= 80:
+        return x
+    v = (-Py + t * (Px - alpha)) / (-Py - t * (Px - alpha))
+    x = int(v.log(u))
+    return x
 
 
-io = remote("my-ecc-service-2.chal.perfect.blue", "1337")
+# io = remote("my-ecc-service-2.chal.perfect.blue", "1337")
+io = process(["python", "challenge.py"])
 io.sendlineafter(b'> ', b'G')
 payload = bytes.fromhex(io.recvline(0).decode().split(': ')[-1])
 io.sendlineafter(b'> ', b'V')
