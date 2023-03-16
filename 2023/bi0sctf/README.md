@@ -1,6 +1,3 @@
-layout: page
-title: "bi0sctf"
-
 # bi0sctf 2023
 
 Since I don't have much time to do all the challenge so here is a short Write Up for 2 crypto challenges i had solve.
