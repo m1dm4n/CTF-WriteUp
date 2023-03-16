@@ -9,20 +9,18 @@ This is a Elliptic Curve Digital Signature Algorithm and the server give us 136 
 
 Matrix to reduce:
 
-$$
-\begin{pmatrix}
+$$ \begin{pmatrix}
 -order & 0 & 0 & 0 \\
 0 & -order & 0 & 0 \\
 r1/s1 & r2/s2 & 2^{120}/order & 0 \\
 z1/s1 - msb1 & z2/s2 - msb2 & 0 & 2^{120} \\
-\end{pmatrix}
-$$
+\end{pmatrix} $$
 
 Small vector after reduce:
 
-$$
-(lsb1, lsb2, (d*2^{120})/order, 2^{120})
-$$
+$$ (lsb1, lsb2, (d*2^{120})/order, 2^{120}) $$
+
+
 
 ## Too EC
 
@@ -32,18 +30,14 @@ For solving a Coppersmith factorization, i had used script from [link](https://g
 
 Matrix to reduce:
 
-$$
-\begin{pmatrix}
+$$ \begin{pmatrix}
 -order & 0 & 0 & 0 \\
 0 & -order & 0 & 0 \\
 r1/s1 & r2/s2 & 2^{128}/order & 0 \\
 z1/s1 & z2/s2 & 0 & 2^{128} \\
-\end{pmatrix}
-$$
+\end{pmatrix} $$
 
 Small vector after reduce:
 
-$$
-(nonce1, nonce2, (d*2^{128})/order, 2^{128})
-$$
+$$ (nonce1, nonce2, (d*2^{128})/order, 2^{128}) $$
 
