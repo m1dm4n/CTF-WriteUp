@@ -123,9 +123,32 @@ def get_funcs_of_priv_hash(samples, real_anss):
     return clauses
 ```
 
-The last `if else` is mean to check that if any index can impact more than 90% the output then i can use it as only clause for that that function, if not i need to re-test first 4 highest statistical deviation to get 2 pair that have most corrected probability. After recover 100 partial functions, I just do normal query to server, calculating the hash value and wait for lucky. 
+The last `if else` is mean to check that if any index can impact more than 90% the output then i can use it as only clause for that that function, if not i need to re-test first 4 highest statistical deviation to get 2 pair that have most corrected probability. 
 
-Local testing prove that my solution have about 30% success rate on average so for each resets i will get around 1 milion. If your network is good enough to make the server check around 50 block number for you then you will get the flag.
+```python
+def re_test(pl, samples, real_anss):
+    permut = [[(0, 1, 2, 3), (0, 2, 1, 3), (0, 3, 1, 2)], [(0, 1, 2, 3), (0, 2, 1, 3)]]
+    c_max = -1
+    ret = None
+    payloads = []
+    payloads.append((pl[0], pl[1], pl[2], pl[3]))
+    payloads.append((pl[0], pl[1], pl[2], pl[0]))
+    for i, pays in enumerate(payloads):
+        for s in permut[i]:
+            cl1 = (pays[s[0]], pays[s[1]])
+            cl2 = (pays[s[2]], pays[s[3]])
+            c = 0
+            for sample, real_ans in zip(samples, real_anss):
+                ans = custom_eval(sample, (cl1, cl2))
+                if ans == real_ans:
+                    c += 1
+            if c > c_max:
+                ret = (cl1, cl2)
+                c_max = c
+    return ret
+```
+
+After recover 100 partial functions, I just do normal query to server, calculating the hash value and wait for lucky. Local testing prove that my solution have about 30% success rate on average so for each reset i will get around 1 milion. If your network is good enough to make the server check around 50 block number for you then you will get the flag.
 
 
 # Blockchain
