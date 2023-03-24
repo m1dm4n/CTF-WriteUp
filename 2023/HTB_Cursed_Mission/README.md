@@ -47,6 +47,7 @@ This challenge have a custom DSA and require us to forge a valid signature for t
 First thing i notice is that the nonce is not generated uniformly at random. The 'random' is a hash value of message concat with $x$ using sha256 so it only has 256 bits. Than it concat with itself to get the 512 bits value so we have this relation $k = k' * (2^{256} + 1)$ with k will be the nonce and k' is the sha256 value.
 
 Using the infomation from sever, we have this equation:
+
 $$
 \begin{align}
 s_i &= (2^{256} + 1)*k_i - x*e_i \pmod{q} \\
@@ -57,6 +58,7 @@ $$
 Since $k_i$ is small (256 bits), I will use the Hidden Number Problem to solve this biased nonces problem. Since we only have 2 samples for each session may be you coule use the coppersmith method (i didnt test it so i don't know it work or not :))
 
 Matrix to reduce:
+
 $$
 \begin{pmatrix}
 	q& 0 & 0 & 0 \\
