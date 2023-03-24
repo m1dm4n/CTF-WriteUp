@@ -17,14 +17,13 @@
 ## Elliptic Labyrinth Revenge
 
 - [Source](https://github.com/m1dm4n/CTF-WriteUp/blob/main/2023/HTB_Cursed_Mission/crypto_elliptic_labyrinth_revenge.zip)
-
 - [Script](https://github.com/m1dm4n/CTF-WriteUp/tree/main/2023/HTB_Cursed_Mission/crypto_elliptic_labyrinth)
 
 We are given a random point on an random Elliptic Curve and we can request the server to give us $p$, $a >> r$, $b >> r$ with $r$ is a random number between 170 and 341.
 
-From the Point that they give us, we will have an equation: $y^2 = x^3 + ax + b \pmod{p}$. Using partial information about $a$ and $b$, we can use Coppersmith method to find $r$ left significant bits of $a, b$ or you could reduce it to a Hidden** number problem** like me
+From the Point that they give us, we will have an equation: $y^2 = x^3 + ax + b \pmod{p}$. Using partial information about $a$ and $b$, we can use Coppersmith method to find $r$ left significant bits of $a, b$ or you could reduce it to a **Hidden number problem** like me
 
-Define $eq1 = y_A^2 - (x_A^3 + x_A * (a\_high * 2^r) + (b\_high * 2^r))$. Matrix to reduce:
+Define $eq1 = y_A^2 - (x_A^3 + x_A * (a_{high} * 2^r) + (b_{high} * 2^r))$. Matrix to reduce:
 
 $$
 \begin{pmatrix} 
@@ -34,12 +33,11 @@ $$
 \end{pmatrix}
 $$
 
-The target vector when $r$ is small enough: $(b\_low, 2^r, a\_low)$
+The target vector when $r$ is small enough: $(b_{low}, 2^r, a_{low})$
 
 ## Biased Heritage
 
 - [Source](https://github.com/m1dm4n/CTF-WriteUp/blob/main/2023/HTB_Cursed_Mission/crypto_biased_heritage.zip)
-
 - [Script](https://github.com/m1dm4n/CTF-WriteUp/tree/main/2023/HTB_Cursed_Mission/crypto_biased_heritage)
 
 This challenge have a custom DSA and require us to forge a valid signature for the message `"right hand"`.
@@ -50,8 +48,8 @@ Using the infomation from sever, we have this equation:
 
 $$
 \begin{align}
-s_i &= (2^{256} + 1)*k_i - x*e_i \pmod{q} \\
-\Leftrightarrow k_i &= s_i/(2^{256} + 1) + x*e_i/(2^{256} + 1) \pmod{q}
+s_i &= (2^{256} + 1)k_i - xe_i \pmod{q} \\
+\Leftrightarrow k_i &= s_i/(2^{256} + 1) + xe_i/(2^{256} + 1) \pmod{q}
 \end{align}
 $$
 
@@ -74,7 +72,6 @@ The target vector we want after reducing: $(k_1, k_2, x/2^{256}, 2^{256})$. Beca
 ## Converging Visions
 
 - [Source](https://github.com/m1dm4n/CTF-WriteUp/blob/main/2023/HTB_Cursed_Mission/crypto_converging_visions.zip)
-
 - [Script](https://github.com/m1dm4n/CTF-WriteUp/tree/main/2023/HTB_Cursed_Mission/crypto_converging_visions)
 
 First you need to recover all parameters of Elliptic Curve on the server. No need to binary search, we can extract $k*p$ from 3 random points on Elliptic Curve, make it mutiple times then GCD all the $k*p$ to get $p$, after that we can easily extract $a, b$.  You can read about it in this Write up ([uiuctf-2020-nookcrypt](https://hackmd.io/@mystiz/uiuctf-2020-nookcrypt))
@@ -86,7 +83,6 @@ Although the value we get from dlog had been modulo with $p$ but the modulus of 
 ## Blokechain
 
 - [Source](https://github.com/m1dm4n/CTF-WriteUp/blob/main/2023/HTB_Cursed_Mission/crypto_blokechain.zip)
-
 - [Script](https://github.com/m1dm4n/CTF-WriteUp/tree/main/2023/HTB_Cursed_Mission/crypto_blokechain)
 
 Because the config is really suck, you could send 60 random number to get all the hash value and send all it back agian.
@@ -135,7 +131,6 @@ Local testing prove that my solution have about 30% success rate on average so f
 ## Navigating the Unknown
 
 - [Source](https://github.com/m1dm4n/CTF-WriteUp/blob/main/2023/HTB_Cursed_Mission/blockchain_navigating_the_unknown.zip)
-
 - [Script](https://github.com/m1dm4n/CTF-WriteUp/tree/main/2023/HTB_Cursed_Mission/blockchain_navigating_the_unknown)
 
 Call the `updateSensors` function with number `10` and done
@@ -143,7 +138,6 @@ Call the `updateSensors` function with number `10` and done
 ## Shooting 101
 
 - [Source](https://github.com/m1dm4n/CTF-WriteUp/blob/main/2023/HTB_Cursed_Mission/blockchain_shooting_101.zip)
-
 - [Script](https://github.com/m1dm4n/CTF-WriteUp/tree/main/2023/HTB_Cursed_Mission/blockchain_shooting_101)
 
 For this challenge you will need some knownledge about how contract understand your calldata.
@@ -170,7 +164,6 @@ ShootingArea(target).third();
 ## The Art of Deception
 
 - [Source](https://github.com/m1dm4n/CTF-WriteUp/blob/main/2023/HTB_Cursed_Mission/blockchain_the_art_of_deception.zip)
-
 - [Script](https://github.com/m1dm4n/CTF-WriteUp/tree/main/2023/HTB_Cursed_Mission/blockchain_the_art_of_deception)
 
 If we want to enter, we need to be a **Entrant** contract and support the `name` function. But **Entrant** is just define as an interface so we could easily control how the `name` function work.
