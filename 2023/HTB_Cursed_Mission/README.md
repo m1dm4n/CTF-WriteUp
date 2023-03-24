@@ -1,3 +1,5 @@
+[![hackmd-github-sync-badge](https://hackmd.io/Ur_BAQxQTs2u3dutoPhdGw/badge)](https://hackmd.io/Ur_BAQxQTs2u3dutoPhdGw)
+
 # Cyber Apocalypse 2023 - The Cursed Mission
 
 - [Cyber Apocalypse 2023 - The Cursed Mission](#cyber-apocalypse-2023---the-cursed-mission)
