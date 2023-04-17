@@ -1,6 +1,6 @@
 # Plaid CTF 2023 - Crypto's write-ups
 
-Detailed Write-ups is on working 
+Detailed Write-up is on working 
 
 ## fastrology 
 
