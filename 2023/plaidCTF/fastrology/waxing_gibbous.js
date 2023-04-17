@@ -4,7 +4,7 @@ const readline = require('node:readline').createInterface({
   output: process.stdout,
 });
 
-const warmup_len = 20;
+const warmup_len = randomInt(64);
 for (let i = 0; i < warmup_len; i++) {
     Math.random();
 }
