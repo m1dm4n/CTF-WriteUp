@@ -1,43 +1,9 @@
-from sage.all import load, matrix, GF, vector
-from struct import unpack, pack
-b13 = [
-    [0, 0, 0],
-    [0, 0],
-    [0, 0, 1],
-    [0],
-    [0, 1],
-    [0, 1, 1],
-    [],
-    [1, 0, 0],
-    [1, 0],
-    [1],
-    [1, 1],
-    [1, 1],
-    [1, 1, 1]
-]
-b4 = [
-    [0, 0],
-    [0, 1],
-    [1, 0],
-    [1, 1],
-]
-b9 = [
-    [0, 0, 0],
-    [0, 0],
-    [0],
-    [0, 1],
-    [],
-    [1, 0],
-    [1],
-    [1, 1],
-    [1, 1, 1],
-]
+from struct import pack, unpack
+from sage.all import GF, load, matrix, vector
 
-bMap = {4: b4, 13: b13, 9: b9}
 F = GF(2)
-equals = load(f'../equals.sobj')
+equals = load(f'equals.sobj')
 MASK = 0xFFFFFFFFFFFFFFFF
-
 
 def xs128p(state0, state1):
     s1 = state0
@@ -54,7 +20,7 @@ def to_double(value):
     return unpack('d', pack('<Q', double_bits))[0] - 1
 
 
-def generator(state0, state1):
+def next_random(state0, state1):
     while True:
         cache = []
         for i in range(64):
@@ -72,30 +38,28 @@ def next_idx():
         k += 64
 
 
-def solve_random(payloads, pre_run, alpha, mult, H):
-
-    leaks = bMap[mult]
+def solve_random(payloads, pre_run, idx_rng, leaks, step=0):
     Ms = matrix(F, 128, 128)
     ans = vector(F, 128)
     c = 0
-    rng = next_idx()
     for i in range(pre_run):
-        next(rng)
+        next(idx_rng)
     for value in payloads:
         if c == 128:
             break
-        i = next(rng)
+        i = next(idx_rng)
+        for _ in range(step):
+            next(idx_rng)
         for j in range(len(leaks[value])):
+            if leaks[value][j] is None:
+                continue
             Ms.set_row(c, equals[i][j])
             if Ms.rank() > c:
                 ans[c] = leaks[value][j]
                 c += 1
             if c == 128:
                 break
-
     state = Ms.solve_right(ans)
     state0 = int(''.join(map(str, state[:64])), 2)
     state1 = int(''.join(map(str, state[64:])), 2)
     return state0, state1
-
-# def recover_next
