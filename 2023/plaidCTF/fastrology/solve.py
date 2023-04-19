@@ -5,6 +5,7 @@ from itertools import permutations
 from math import floor
 from struct import pack, unpack
 
+import time
 from mapping import *
 from pwn import args, debug, info, log, process, remote
 from sage.all import GF, load, matrix, vector
@@ -81,7 +82,6 @@ def solve_random(payloads, pre_run, idx_rng, leaks, step=0):
                 c += 1
             if c == 128:
                 break
-
     state = Ms.solve_right(ans)
     state0 = int(''.join(map(str, state[:64])), 2)
     state1 = int(''.join(map(str, state[64:])), 2)
@@ -206,12 +206,14 @@ alpha = alphas[target]
 
 for i in range(50):
     io.recvline()
-    debug(f"******* Trial {i+1:02}/50 *******")
+    debug(f"********* Trial {i+1:02}/50 *********")
     prefix = io.recvline(0).decode()
     hash_check = io.recvline(0).decode()
     debug(f"Prefix: " + prefix)
     debug(f"Result's Hash: " + hash_check)
+    tick = time.time()
     ans = solve_func(prefix, hash_check, alpha)
+    tock = time.time()
     # io.interactive()
     # break
     io.recvline()
@@ -220,6 +222,6 @@ for i in range(50):
     if args.LOCAL:
         # Dont know why but testing on my Local need this line to work
         io.recvline()
-    debug(f"*********** end ***********")
+    debug(f"******** end in {tock-tick:.04f} ********\n")
 
 io.interactive()
