@@ -1,3 +1,5 @@
+[![hackmd-github-sync-badge](https://hackmd.io/1rI_3sqkRLyupeJ4sX2ksA/badge)](https://hackmd.io/1rI_3sqkRLyupeJ4sX2ksA)
+
 # Predicting Math.random in node js and Crypto's write-ups for Plaid CTF 2023
 
 ## Summary
