@@ -53,3 +53,4 @@ for eps in trange(-10, 10):
         break
 print(error)
 print(flag)
+# HCMUS-CTF{the_EASIEST_0ne}
