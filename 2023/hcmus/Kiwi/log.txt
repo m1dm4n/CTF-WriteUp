@@ -1,0 +1,192 @@
+
+Authentication Id : 0 ; 287159 (00000000:000461b7)
+Session           : Interactive from 1
+User Name         : hcmusctf
+Domain            : HCMUS
+Logon Server      : HCMUS
+Logon Time        : 5/7/2023 3:19:58 AM
+SID               : S-1-5-21-2385635905-2323104132-2454383018-1000
+        msv :
+         [00000003] Primary
+         * Username : hcmusctf
+         * Domain   : HCMUS
+         * NTLM     : 4b46c72c1ff4b6d7b90143cde874e03d
+         * SHA1     : 029fb493dfc0bd68b6a702ffa4746599894e0fe9
+        tspkg :
+        wdigest :
+         * Username : hcmusctf
+         * Domain   : HCMUS
+         * Password : HCMUS-CTF{DuMp_cL34r_t3x1_p4sSw0rD_8y_WD1g3sT_4n|)_m1MiK4zt}
+        kerberos :
+         * Username : hcmusctf
+         * Domain   : HCMUS
+         * Password : (null)
+        ssp :   KO
+        credman :
+
+Authentication Id : 0 ; 287118 (00000000:0004618e)
+Session           : Interactive from 1
+User Name         : hcmusctf
+Domain            : HCMUS
+Logon Server      : HCMUS
+Logon Time        : 5/7/2023 3:19:58 AM
+SID               : S-1-5-21-2385635905-2323104132-2454383018-1000
+        msv :
+         [00000003] Primary
+         * Username : hcmusctf
+         * Domain   : HCMUS
+         * NTLM     : 4b46c72c1ff4b6d7b90143cde874e03d
+         * SHA1     : 029fb493dfc0bd68b6a702ffa4746599894e0fe9
+        tspkg :
+        wdigest :
+         * Username : hcmusctf
+         * Domain   : HCMUS
+         * Password : HCMUS-CTF{DuMp_cL34r_t3x1_p4sSw0rD_8y_WD1g3sT_4n|)_m1MiK4zt}
+        kerberos :
+         * Username : hcmusctf
+         * Domain   : HCMUS
+         * Password : (null)
+        ssp :   KO
+        credman :
+
+Authentication Id : 0 ; 997 (00000000:000003e5)
+Session           : Service from 0
+User Name         : LOCAL SERVICE
+Domain            : NT AUTHORITY
+Logon Server      : (null)
+Logon Time        : 5/7/2023 3:19:17 AM
+SID               : S-1-5-19
+        msv :
+        tspkg :
+        wdigest :
+         * Username : (null)
+         * Domain   : (null)
+         * Password : (null)
+        kerberos :
+         * Username : (null)
+         * Domain   : (null)
+         * Password : (null)
+        ssp :   KO
+        credman :
+
+Authentication Id : 0 ; 67303 (00000000:000106e7)
+Session           : Interactive from 1
+User Name         : DWM-1
+Domain            : Window Manager
+Logon Server      : (null)
+Logon Time        : 5/7/2023 3:19:17 AM
+SID               : S-1-5-90-0-1
+        msv :
+        tspkg :
+        wdigest :
+         * Username : HCMUS$
+         * Domain   : WORKGROUP
+         * Password : (null)
+        kerberos :
+        ssp :   KO
+        credman :
+
+Authentication Id : 0 ; 67230 (00000000:0001069e)
+Session           : Interactive from 1
+User Name         : DWM-1
+Domain            : Window Manager
+Logon Server      : (null)
+Logon Time        : 5/7/2023 3:19:17 AM
+SID               : S-1-5-90-0-1
+        msv :
+        tspkg :
+        wdigest :
+         * Username : HCMUS$
+         * Domain   : WORKGROUP
+         * Password : (null)
+        kerberos :
+        ssp :   KO
+        credman :
+
+Authentication Id : 0 ; 996 (00000000:000003e4)
+Session           : Service from 0
+User Name         : HCMUS$
+Domain            : WORKGROUP
+Logon Server      : (null)
+Logon Time        : 5/7/2023 3:19:17 AM
+SID               : S-1-5-20
+        msv :
+        tspkg :
+        wdigest :
+         * Username : HCMUS$
+         * Domain   : WORKGROUP
+         * Password : (null)
+        kerberos :
+         * Username : hcmus$
+         * Domain   : WORKGROUP
+         * Password : (null)
+        ssp :   KO
+        credman :
+
+Authentication Id : 0 ; 46163 (00000000:0000b453)
+Session           : Interactive from 1
+User Name         : UMFD-1
+Domain            : Font Driver Host
+Logon Server      : (null)
+Logon Time        : 5/7/2023 3:19:16 AM
+SID               : S-1-5-96-0-1
+        msv :
+        tspkg :
+        wdigest :
+         * Username : HCMUS$
+         * Domain   : WORKGROUP
+         * Password : (null)
+        kerberos :
+        ssp :   KO
+        credman :
+
+Authentication Id : 0 ; 46164 (00000000:0000b454)
+Session           : Interactive from 0
+User Name         : UMFD-0
+Domain            : Font Driver Host
+Logon Server      : (null)
+Logon Time        : 5/7/2023 3:19:16 AM
+SID               : S-1-5-96-0-0
+        msv :
+        tspkg :
+        wdigest :
+         * Username : HCMUS$
+         * Domain   : WORKGROUP
+         * Password : (null)
+        kerberos :
+        ssp :   KO
+        credman :
+
+Authentication Id : 0 ; 45190 (00000000:0000b086)
+Session           : UndefinedLogonType from 0
+User Name         : (null)
+Domain            : (null)
+Logon Server      : (null)
+Logon Time        : 5/7/2023 3:19:16 AM
+SID               :
+        msv :
+        tspkg :
+        wdigest :
+        kerberos :
+        ssp :   KO
+        credman :
+
+Authentication Id : 0 ; 999 (00000000:000003e7)
+Session           : UndefinedLogonType from 0
+User Name         : HCMUS$
+Domain            : WORKGROUP
+Logon Server      : (null)
+Logon Time        : 5/7/2023 3:19:16 AM
+SID               : S-1-5-18
+        msv :
+        tspkg :
+        wdigest :
+         * Username : HCMUS$
+         * Domain   : WORKGROUP
+         * Password : (null)
+        kerberos :
+         * Username : hcmus$
+         * Domain   : WORKGROUP
+         * Password : (null)
+        ssp :   KO
+        credman :
