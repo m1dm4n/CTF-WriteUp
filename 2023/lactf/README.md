@@ -52,7 +52,7 @@ contract Exploit {
 }
 ```
 
-> `fallback` is the function that will be called when the contract don't understand the signature function of when it's empty 
+> `fallback` is the function that will be called when the contract don't understand the function's signature, or when it's empty and don't have a `receive` function.
 
 The harder thing is done, other part is just stack knowledge and programming skill. My solution is:
 
