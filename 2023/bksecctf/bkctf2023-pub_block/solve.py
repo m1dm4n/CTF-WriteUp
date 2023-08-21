@@ -23,7 +23,7 @@ target_vector = [2**256]*l + [2**256, 1]
 bound_mat = matrix.diagonal([2**256//i for i in target_vector])
 mat *= bound_mat
 matL = mat.LLL()
-mat /= bound_mat
+matL /= bound_mat
 
 # get p and get flag
 p = matL[0][-2]
