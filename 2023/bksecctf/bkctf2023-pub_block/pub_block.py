@@ -25,7 +25,6 @@ def encrypt(msg, p, n):
 
 with open('flag.txt', 'rb') as f:
     msg = f.read()
-f.close()
 
 leak, enc = encrypt(msg, p, n)
 
