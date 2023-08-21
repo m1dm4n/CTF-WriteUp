@@ -29,8 +29,6 @@ f.close()
 
 leak, enc = encrypt(msg, p, n)
 
-print(f"{p = }")
-print(f"{q = }")
 print(f"n = {n}")
 print(f'leak = {leak}')
 print(f"enc = '{enc.hex()}'")
