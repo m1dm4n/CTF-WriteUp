@@ -1,0 +1,1 @@
+cd solve && cargo build-bpf && cd ../tribunal-solve && cargo run
