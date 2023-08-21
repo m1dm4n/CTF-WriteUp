@@ -8,7 +8,7 @@ g = 0x10000000000000000000000000000000000000000000000000000000000000000000000000
 
 
 # Construct lattice
-l = 4
+l = 3
 encs = [int(enc[128*i: 128*(i+1)], 16) for i in range(len(leak))]
 mat = matrix(ZZ, l+2, l+2)
 for i in range(l):
