@@ -1,0 +1,7 @@
+services:
+    itstime:
+        build: .
+        ports:
+            - "31339:31339"
+        volumes:
+            - ".:/itstime"
