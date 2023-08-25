@@ -42,7 +42,7 @@ $$
 
 - Để ý $n$ có dạng đặc biệt là $p^{11}*q^{11}$, ngoài ra để dễ dàng tính dlog của $A$ ta sẽ tính dlog trên 2 trường con $p^{11}$ và $q^{11}$.
 
-- Đây là các trường đặc biệt hay nói cách khác là tính dlog trên các số p-adic là rất dễ dàng: [Tham khảo](https://blog.kelte.cc/ctf/writeup/2021/05/15/m0lecon-ctf-2021-teaser-giant-log.html)
+- Đây là các trường đặc biệt hay nói cách khác là bài toán  logarithm rời rạc trên các số p-adic là rất dễ dàng: [Tham khảo](https://blog.kelte.cc/ctf/writeup/2021/05/15/m0lecon-ctf-2021-teaser-giant-log.html)
 
 ```python
 # Solving dlog on p-adic field
@@ -52,8 +52,9 @@ ap = (Rp(A).log() / Rp(3).log()).lift()
 aq = (Rq(A).log() / Rq(3).log()).lift()
 ```
 
-- Tuy nhiên $\lambda(n) = (p-1)(q-1)(p*q)^{10}$ mà tính dlog trên $p^{11}$ chỉ trả về 1 số năm trong trường con $p^{10}$, tương tự với $q$. Do đó ta cần tính thêm dlog trên 2 trường con $p-1$ và $q-1$, sau đó dùng định lý số dư Trung hoa để khôi phục lại $a$
+- Tuy nhiên $\lambda(p^{11}) = (p-1)p^{10}$, $\lambda(q) = (q-1)q^{10}$ nên $\lambda(n) = (p-1)(q-1)(p*q)^{10}$  mà để tính dlog cho các số p-adic trên $F_{p^{11}}$ chỉ trả về 1 số nằm trong trường con $p^{10} \in \lambda(p^{11})$ trên $F_{p^{11}}$, tương tự với $q$. Do đó ta cần tính thêm dlog trên 2 trường con $p-1$ và $q-1$, sau đó dùng định lý số dư Trung hoa để khôi phục lại $a$
 
+- Vì mình đang cần tìm dlog trên subgroup $(p-1) \in \lambda(p^{11})$ nên cần phải mũ $p^{10}$ cho 2 số  để đưa về cùng subgroup ($o(3) = (p-1)p^{10} => o(3^{p^{10}})=(p-1)$), tương tự với $p-1$
 ```python
 odp = p-1
 R = Zmod(p**11)
@@ -125,6 +126,8 @@ mat *= bound_mat
 matL = mat.LLL()
 matL /= bound_mat
 p = matL[0][-2] # usually will be the smallest vector
+q = n//p
+assert p*q == n
 ```
 
 - Làm ngược lại hàm decrypt là ta sẽ có `flag`:
@@ -329,8 +332,8 @@ flowchart TB;
     id2--call-->id3
     id3--get-->time
     time--"return (pid, time)"-->id3
-    id3-->key
-    key-->id4;
+    id3--calculate-->key
+    key--call-->id4;
     id4--return-->state;
 ```
 
@@ -338,12 +341,46 @@ Với việc module random trong python sử dụng thuật toán [MT19937](http
 
 Đầu tiên thì mình sẽ kết nối lên server và lấy đủ số lượng output cần thiết. Tối ưu nhất sẽ là lấy flag đã bị mã hoá rồi hãy lấy output từ server vì quá trình lấy output có thể khá lâu, nên việc làm như trên sẽ giúp thời gian chênh lệch sẽ không quá lớn sau khi khôi phục lại được thời gian từ `state`
 
+```python
+from pwn import remote
+
+io = remote("18.141.236.82", 31625)
+io.sendlineafter(b"> ", b"2")
+io.recvline()
+io.recvline()
+io.recvline()
+ct = io.recvline().decode().split(" = ")[-1]
+
+def parse(bs):
+    a = int.from_bytes(bs, 'little')
+    ret = []
+    for i in range(4):
+        ret.append(a % 2**32)
+        a >>= 32
+    return ret
+data = []
+
+io.sendlineafter(b"> ", b"1")
+while len(data) < 624:
+    print(len(data))
+    io.sendlineafter(b"(y/not y) ", b"y")
+    for i in range(3):
+        k = bytes.fromhex(io.recvline(0).decode().split(' = ')[-1])
+        for j in parse(k):
+            data.append(j)
+            if len(data) == 624:
+                print(f"{data = }")
+                print(f"{ct = }")
+                exit()
+    io.recvline()
+```
+
 Để khôi phục `state` thì có nhiều cách nhưng được biết tới nhiều và đơn giản thì là **z3**. Tuy nhiên mình sẽ dùng [repository](https://github.com/JuliaPoo/MT19937-Symbolic-Execution-and-Solver) này từ github vì nó sử dụng cách solve hệ phương trình bằng ma trận trên $GF_2$ với ma trận hệ số đã được dump lại từ trước nên hiệu suất là vượt trội so với **z3**
 
 ```python
 from MT19937 import MT19937
 
-data = [...]
+data = [...] # output from server
 cur_time = time.time()
 print("Recover state took: ", end='')
 rng_clone = MT19937(state_from_data = (data, 32))
@@ -429,5 +466,7 @@ for i in range(10**6):
 ```
 
 ![](https://hackmd.io/_uploads/SJeC0YmT2.png)
+
+[Full solution](https://github.com/m1dm4n/CTF-WriteUp/tree/main/2023/bksecctf/bkctf2023-itstime/solution)
 
 Writeups chỉ tới đây thôi, câu `shuffle` thì vì mình tham câu `It's time` nên cũng chưa kịp đọc đề trong thời gian diễn ra. Với lại cũng khá đáng tiếc khi mình bận hầu hết thời gian của giải CTF và chỉ có khoảng 3 tiếng cuối để làm nên đã không kịp blood câu `It's time` (ra lúc 16h39 :scream_cat:).
